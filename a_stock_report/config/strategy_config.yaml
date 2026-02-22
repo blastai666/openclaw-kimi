@@ -1,0 +1,218 @@
+# A股深度优化日报系统v2.0.0 - 策略配置文件
+
+# 策略细分配置
+strategy_subdivisions:
+  momentum:
+    strong_momentum:
+      name: "强势动量"
+      description: "涨幅>7%的强势股票"
+      filter_criteria:
+        price_change_pct: ">7"
+        volume_ratio: ">1.5"
+        historical_win_rate: 0.62
+        risk_level: "high"
+    reversal_momentum:
+      name: "反转动量"
+      description: "超跌反弹的股票"
+      filter_criteria:
+        price_change_pct: "<-5"
+        rsi: "<30"
+        historical_win_rate: 0.58
+        risk_level: "medium"
+    breakout_momentum:
+      name: "突破动量"
+      description: "突破关键阻力位的股票"
+      filter_criteria:
+        resistance_break: true
+        volume_spike: true
+        historical_win_rate: 0.60
+        risk_level: "medium_high"
+  
+  value:
+    deep_value:
+      name: "深度价值"
+      description: "PE<15的低估值股票"
+      filter_criteria:
+        pe_ratio: "<15"
+        pb_ratio: "<1.5"
+        dividend_yield: ">3"
+        historical_win_rate: 0.65
+        risk_level: "low"
+    reasonable_value:
+      name: "合理价值"
+      description: "PE 15-30的合理估值股票"
+      filter_criteria:
+        pe_ratio: "15-30"
+        roe: ">10"
+        historical_win_rate: 0.59
+        risk_level: "low_medium"
+    quality_value:
+      name: "质量价值"
+      description: "ROE>15%的高质量股票"
+      filter_criteria:
+        roe: ">15"
+        debt_to_equity: "<0.8"
+        profit_growth: ">10"
+        historical_win_rate: 0.63
+        risk_level: "low"
+  
+  defensive:
+    anti_decline_defensive:
+      name: "抗跌防御"
+      description: "跌幅<1%的抗跌股票"
+      filter_criteria:
+        price_change_pct: ">-1"
+        beta: "<0.8"
+        sector: ["公用事业", "必需消费品", "医疗保健"]
+        historical_win_rate: 0.70
+        risk_level: "very_low"
+    stable_defensive:
+      name: "稳健防御"
+      description: "波动率低的稳健股票"
+      filter_criteria:
+        volatility_30d: "<15"
+        dividend_consistency: true
+        historical_win_rate: 0.68
+        risk_level: "low"
+    dividend_defensive:
+      name: "红利防御"
+      description: "高股息的防御性股票"
+      filter_criteria:
+        dividend_yield: ">5"
+        payout_ratio: "<60"
+        dividend_growth: true
+        historical_win_rate: 0.72
+        risk_level: "very_low"
+  
+  us_market_mapping:
+    military_mapping:
+      name: "军工映射"
+      description: "与美股军工股相关的A股"
+      filter_criteria:
+        concept_tags: ["军工", "航空航天", "国防"]
+        us_correlation: ">0.7"
+        historical_win_rate: 0.55
+        risk_level: "high"
+    ai_chip_mapping:
+      name: "AI芯片映射"
+      description: "与美股AI芯片股相关的A股"
+      filter_criteria:
+        concept_tags: ["半导体", "芯片", "AI", "算力"]
+        us_correlation: ">0.8"
+        historical_win_rate: 0.58
+        risk_level: "high"
+    new_energy_mapping:
+      name: "新能源映射"
+      description: "与美股新能源股相关的A股"
+      filter_criteria:
+        concept_tags: ["新能源", "光伏", "锂电", "电动车"]
+        us_correlation: ">0.75"
+        historical_win_rate: 0.56
+        risk_level: "high"
+    consumer_electronics_mapping:
+      name: "消费电子映射"
+      description: "与美股消费电子股相关的A股"
+      filter_criteria:
+        concept_tags: ["消费电子", "苹果产业链", "智能设备"]
+        us_correlation: ">0.7"
+        historical_win_rate: 0.54
+        risk_level: "medium_high"
+    biotech_mapping:
+      name: "生物医药映射"
+      description: "与美股生物医药股相关的A股"
+      filter_criteria:
+        concept_tags: ["生物医药", "创新药", "医疗器械"]
+        us_correlation: ">0.65"
+        historical_win_rate: 0.52
+        risk_level: "high"
+
+# 概念标签配置
+concept_tags:
+  - "人工智能"
+  - "大数据"
+  - "云计算"
+  - "半导体"
+  - "芯片"
+  - "新能源"
+  - "光伏"
+  - "锂电"
+  - "电动车"
+  - "军工"
+  - "航空航天"
+  - "国防"
+  - "消费电子"
+  - "苹果产业链"
+  - "智能设备"
+  - "生物医药"
+  - "创新药"
+  - "医疗器械"
+  - "银行"
+  - "保险"
+  - "证券"
+  - "房地产"
+  - "基建"
+  - "消费"
+  - "医药"
+  - "食品饮料"
+  - "家电"
+  - "汽车"
+  - "机械"
+  - "化工"
+  - "有色"
+  - "钢铁"
+  - "煤炭"
+  - "电力"
+  - "公用事业"
+  - "通信"
+  - "计算机"
+  - "传媒"
+  - "纺织服装"
+  - "轻工制造"
+  - "农林牧渔"
+
+# 行业标签配置
+industry_tags:
+  - "银行"
+  - "非银金融"
+  - "房地产"
+  - "建筑建材"
+  - "基础化工"
+  - "石油石化"
+  - "有色金属"
+  - "钢铁"
+  - "煤炭"
+  - "电力及公用事业"
+  - "交通运输"
+  - "汽车"
+  - "家用电器"
+  - "纺织服装"
+  - "轻工制造"
+  - "商业贸易"
+  - "餐饮旅游"
+  - "医药"
+  - "食品饮料"
+  - "农林牧渔"
+  - "电子"
+  - "计算机"
+  - "传媒"
+  - "通信"
+  - "机械设备"
+  - "电力设备及新能源"
+  - "国防军工"
+  - "综合"
+
+# 贝叶斯计算参数
+bayesian_params:
+  prior_weight: 0.4
+  likelihood_weight: 0.6
+  market_baseline: 0.5
+  lookback_window_days: 5
+
+# 报告生成配置
+report_config:
+  top_stocks_count: 20
+  strategy_display_threshold: 0.5
+  include_case_study: true
+  case_study_stock: "星环科技"
+  output_format: "markdown"
+  include_charts: false
